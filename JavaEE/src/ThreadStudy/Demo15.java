@@ -17,6 +17,15 @@ class Counter {
             count++;
         }
     }
+
+    public static void  func(){
+        synchronized(Counter.class){
+
+        }
+    }
+    synchronized public static void  func1(){
+
+    }
 }
 
 public class Demo15 {
