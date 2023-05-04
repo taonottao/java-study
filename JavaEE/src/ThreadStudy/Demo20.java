@@ -2,6 +2,7 @@ package ThreadStudy;
 
 
 /**
+ * 懒汉式
  * @version 1.0
  * @Author T-WANG
  * @Date 2023/5/3 17:26

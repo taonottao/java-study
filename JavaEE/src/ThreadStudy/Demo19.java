@@ -1,6 +1,8 @@
 package ThreadStudy;
 
 /**
+ * 单例模式
+ * 饿汉式
  * @version 1.0
  * @Author T-WANG
  * @Date 2023/5/3 16:42
