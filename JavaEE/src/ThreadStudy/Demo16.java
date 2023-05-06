@@ -8,17 +8,17 @@ import java.util.Scanner;
  * @Date 2023/5/2 21:50
  */
 public class Demo16 {
-//    private static volatile int isQuit = 0;
-    private static int isQuit = 0;
+    private static volatile int isQuit = 0;
+//    private static int isQuit = 0;
 
     public static void main(String[] args) {
         Thread t = new Thread(() -> {
             while (isQuit == 0){
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+//                try {
+//                    Thread.sleep(1000);
+//                } catch (InterruptedException e) {
+//                    e.printStackTrace();
+//                }
             }
             System.out.println("循环结束! t 线程退出!");
         });
