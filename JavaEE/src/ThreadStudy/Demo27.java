@@ -50,6 +50,9 @@ class MyTimer{
     //有一个阻塞优先级队列,来保存任务
     private PriorityBlockingQueue<MyTask> queue = new PriorityBlockingQueue<>();
 
+    // 专门使用这个对象来进行加锁/等待通知
+    private Object locker = new Object();
+
     public MyTimer(){
         t = new Thread(() -> {
             while (true){
@@ -57,7 +60,7 @@ class MyTimer{
                     //取出队首元素,检查看看队首元素任务是否到时间了.
                     //如果时间没到,就把任务塞回队列里去
                     //如果时间到了,就把任务进行执行.
-                    synchronized (this) {
+                    synchronized (locker) {
                         MyTask myTask = queue.take();
                         long curTime = System.currentTimeMillis();
                         if(curTime < myTask.getTime()){
@@ -65,7 +68,7 @@ class MyTimer{
                             // 比如 现在是13:00, 取出来的任务是14:00执行
                             queue.put(myTask);
                             //在put之后,进行一个wait
-                                this.wait(myTask.getTime() - curTime);
+                            locker.wait(myTask.getTime() - curTime);
                         }else {
                             //时间到了,执行任务
                             myTask.run();
@@ -88,8 +91,8 @@ class MyTimer{
         //注意这里的时间上的换算
         MyTask task = new MyTask(runnable, System.currentTimeMillis() + after);
         queue.put(task);
-        synchronized (this) {
-            this.notify();
+        synchronized (locker) {
+            locker.notify();
         }
     }
 }
