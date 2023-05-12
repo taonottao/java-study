@@ -13,20 +13,20 @@ public class Demo32 {
         try{
             reentrantLock.lock();// 加锁
 
-            if(cond1){
-                reentrantLock.unlock();
-                return;
-            }
-            if(cond2){
-                reentrantLock.unlock();
-                return;
-            }
-            if(cond3){
-                reentrantLock.unlock();
-                return;
-            }
-
-            throw new Exception();
+//            if(cond1){
+//                reentrantLock.unlock();
+//                return;
+//            }
+//            if(cond2){
+//                reentrantLock.unlock();
+//                return;
+//            }
+//            if(cond3){
+//                reentrantLock.unlock();
+//                return;
+//            }
+//
+//            throw new Exception();
         }finally{
             reentrantLock.unlock();// 解锁
         }
