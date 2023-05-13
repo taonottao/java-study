@@ -46,11 +46,21 @@ public class UdpEchoServer {
             DatagramPacket responsePacket =  new DatagramPacket(response.getBytes(), response.getBytes().length,
                     requestPacket.getSocketAddress());
             socket.send(responsePacket);
+            // 4. 打印一下, 当前这次请求响应的处理中间结果
+            System.out.printf("[%s:%d] req: %s; resp: %s\n", requestPacket.getAddress().toString(),
+                    requestPacket.getPort(), request, response);
         }
     }
 
     // 这个方法表示"根据请求计算响应"
     public String process(String request) {
         return request;
+    }
+
+    public static void main(String[] args) throws IOException {
+        // 端口号的指定, 可以随便指定
+        // 1024 - 65535 这个范围内随便挑一个数字就行了
+        UdpEchoServer server = new UdpEchoServer(9090);
+        server.start();
     }
 }
