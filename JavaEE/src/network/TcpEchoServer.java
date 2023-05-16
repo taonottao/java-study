@@ -60,7 +60,7 @@ public class TcpEchoServer {
                     System.out.printf("[%s:%d] 客户端下线!\n", clientSocket.getInetAddress().toString(), clientSocket.getPort());
                     break;
                 }
-                // 注意!!此处使用 next 是一直读取到换行符/空格/其他空白符结束, 但是最终返回结果里不包含上述空白符.
+                // 注意!! 此处使用 next 是一直读取到换行符/空格/其他空白符结束, 但是最终返回结果里不包含上述空白符.
                 String request = scanner.next();
                 // 2. 根据请求构造响应
                 String response = process(request);
