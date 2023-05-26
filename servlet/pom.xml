@@ -25,4 +25,8 @@
 
     </dependencies>
 
+    <packaging>war</packaging>
+    <build>
+        <finalName>hello_servlet</finalName>
+    </build>
 </project>
