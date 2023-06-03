@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>表白墙</title>
+    <script src="jquery-1.9.0.min.js"></script>
+</head>
+<body>
+    <div class="container";style="width: 100%;text-align: center;">
+        <h2>表白墙</h2>
+        谁&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;: <input id="username"><p></p>
+        对谁&nbsp;&nbsp;&nbsp;: <input id="tousername"><p></p>
+        说&nbsp;&nbsp;&nbsp;: <input id="msg"><p></p>
+        <input type="button" value="提 交" onclick="mysub()"><p></p>
+        <div id="div_allmsg">
+
+        </div>
+    </div>
+    <script>
+        function mysub(){
+            let iptUserName = jQuery("#username");
+            let iptToUserName = jQuery("#tousername");
+            let iptMsg = jQuery("#msg");
+            // 1.非空校验
+            if(iptUserName.val().trim()==""){
+                alert("请先输入您的名字");
+                iptUserName.focus();
+                return;
+            }
+            if(iptToUserName.val().trim()==""){
+                alert("请先输入对方的名字");
+                iptToUserName.focus();
+                return;
+            }
+            if(iptMsg.val().trim()==""){
+                alert("请先输入信息");
+                iptMsg.focus();
+                return;
+            }
+            // 2.将内容展示在表白墙
+            jQuery("#div_allmsg").append(iptUserName.val()+"对"+iptToUserName.val()+"说: "+iptMsg.val()+"<p></p>");
+            // 3.清空输入的内容
+            iptUserName.val("");
+            iptToUserName.val("");
+            iptMsg.val("");
+            // 4. 通过 ajax 构造 post 请求, 把这个新消息提交给服务器
+            let body = {
+                // "" 可以省略
+                "iptUserName": from,
+                iptToUserName: to,
+                iptMsg: mag
+            };
+            $.ajax({
+                type: 'post',
+                url: 'message',
+                contentType: "application/json;charset=utf8",
+                data: JSON.stringify(body),
+                success: function(body){
+                    // 这个是响应成功返回之后, 要调用的回调
+                    console.log("消息发送给服务器成功!");
+                }
+            })
+        }
+
+        // 在页面加载的时候, 希望能够从服务器获取到所有的消息, 并显示在网页中.
+        $.ajax({
+            type: 'get',
+            // url 都是使用相对路径的写法, 相对路径意味着工作路径就是当前文件所在的路径
+            // 当前文件所在路径是 /message_wall/ , 因此此时构造的请求就是 /message_wall/message
+            url: 'message',
+            success: function (body) {
+                // body 是收到的响应的正文部分, 如我们之前的约定, body 应该是一个 json 数组
+                // 由于响应的 Content-Type 是 application/json, 此时收到的 body 会被 jquery 自动
+                // 的把它从字符串转成 js 对象数组, 此处就不需要手动进行 JSON.parse 了
+                // 此处的 body 已经是一个 JSON.parse 之后得到的 js 对象数组了.
+                // 就需要遍历这个 body 数组, 取出每个元素, 再依据这样的元素构造出 html 标签, 并添加到页面上
+                let container = document.querySelector('.container');
+                for(let message of body){
+                    let rowDiv = document.createElement('div');
+                    rowDiv.className = "row";
+                    rowDiv.innerHTML = message.from + " 对 " + message.to + " 说: " + message.message;
+                    container.appendChild(rowDiv);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
