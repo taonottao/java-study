@@ -1,12 +1,7 @@
-import com.demo.component.ArticleController;
-import com.demo.component.BController;
-import com.demo.component.UserComponent;
-import com.demo.component.aController;
+import com.demo.controller.StudentController;
+import com.demo.model.Student;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
-import org.springframework.stereotype.Controller;
-
-import java.beans.Introspector;
 
 /**
  * @version 1.0
@@ -14,8 +9,16 @@ import java.beans.Introspector;
  * @Date 2023/6/14 13:06
  */
 public class APP {
+
     public static void main(String[] args) {
+        ApplicationContext context = new ClassPathXmlApplicationContext("spring_config.xml");
+        StudentController studentController = context.getBean("studentController", StudentController.class);
+        studentController.sayHi();
+    }
+
+    public static void main1(String[] args) {
         // 1. 先得到 Spring 对象
+//        BeanFactory context = new XbmImageDecoder(new ClassPathResource("spring_config.xml"));
         ApplicationContext context = new ClassPathXmlApplicationContext("spring_config.xml");
         // 2. 从 Spring 中取出 Bean 对象
 //        User user = (User) context.getBean("user");
@@ -41,8 +44,18 @@ public class APP {
 //
 //        String s3 = "UInfo";
 //        System.out.println("s3:" + Introspector.decapitalize(s3));
-        UserComponent userComponent = context.getBean("userComponent", UserComponent.class);
-        System.out.println(userComponent.sayHi());
+
+//        UserComponent userComponent = context.getBean("userComponent", UserComponent.class);
+//        System.out.println(userComponent.sayHi());
+
+//        User user = context.getBean("user", User.class);
+//        System.out.println(user.sayHi());
+
+        Student student = context.getBean("getStudent", Student.class);
+        System.out.println(student);
+        Student student2 = context.getBean("s1", Student.class);
+        System.out.println(student2);
+
 
     }
 }
