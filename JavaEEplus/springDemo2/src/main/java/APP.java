@@ -1,4 +1,7 @@
 import com.demo.controller.StudentController;
+import com.demo.controller.TeacherController;
+import com.demo.controller.UserAdviceController;
+import com.demo.controller.UserController;
 import com.demo.model.Student;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -12,8 +15,18 @@ public class APP {
 
     public static void main(String[] args) {
         ApplicationContext context = new ClassPathXmlApplicationContext("spring_config.xml");
-        StudentController studentController = context.getBean("studentController", StudentController.class);
-        studentController.sayHi();
+//        StudentController studentController = context.getBean("studentController", StudentController.class);
+//        studentController.sayHi();
+//        TeacherController teacherController = context.getBean("teacherController", TeacherController.class);
+//        teacherController.teach();
+
+        UserController uc = context.getBean("userController", UserController.class);
+        uc.getUser();
+
+        UserAdviceController uac = context.getBean("userAdviceController", UserAdviceController.class);
+        uac.getUser();
+
+
     }
 
     public static void main1(String[] args) {

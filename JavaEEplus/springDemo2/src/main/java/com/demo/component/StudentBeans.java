@@ -12,13 +12,24 @@ import org.springframework.stereotype.Component;
 @Component
 public class StudentBeans {
 
-    @Bean(name = {"s1", "s2"})
-    public Student getStudent(){
+//    @Bean(name = {"s1", "s2"})
+    @Bean
+    public Student getStudent1(){
         // 伪代码, 构建对象
         Student student = new Student();
         student.setId(1);
         student.setName("张三");
         student.setAge(18);
+        return student;
+    }
+
+    @Bean
+    public Student getStudent2(){
+        // 伪代码, 构建对象
+        Student student = new Student();
+        student.setId(2);
+        student.setName("李四");
+        student.setAge(20);
         return student;
     }
 
