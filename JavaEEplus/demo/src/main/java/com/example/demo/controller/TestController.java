@@ -5,8 +5,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.util.UUID;
 
 /**
  * @version 1.0
@@ -64,11 +67,30 @@ public class TestController {
         return un + ": " + pwd;
     }
 
+    // demo 版
     @RequestMapping("/upfile")
-    public String upfile(@RequestPart("myfile")MultipartFile file) throws IOException {
+    public String upfile(@RequestPart("myfile") MultipartFile file) throws IOException {
         String path = "E:\\workSpace\\JavaEEplus\\img.png";
         // 保存文件
         file.transferTo(new File(path));
         return path;
+    }
+
+    //最终版
+    @RequestMapping("/finalupfile")
+    public String finalUpFile(@RequestPart("myfile") MultipartFile file) throws IOException {
+        // 根目录
+        String path = "E:\\workSpace\\JavaEEplus\\";
+        // 根目录 + 唯一文件名
+        path += UUID.randomUUID().toString().replace("-", "");
+        // 根目录 + 唯一文件名 + 文件的后缀
+        path += file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
+        file.transferTo(new File(path));
+        return path;
+    }
+
+    @GetMapping("/getparam")
+    public String getParam(HttpServletRequest req, HttpServletResponse res){
+        return req.getParameter("username");
     }
 }
