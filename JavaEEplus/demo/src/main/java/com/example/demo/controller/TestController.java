@@ -1,12 +1,15 @@
 package com.example.demo.controller;
 
 import com.example.demo.model.User;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.io.IOException;
 import java.util.UUID;
@@ -20,6 +23,7 @@ import java.util.UUID;
 //@ResponseBody // 告诉程序我返回的是一个数据而不是一个页面
 @Controller // 让框架启动的时候加载当前类(只有加载的类, 别人蔡锷能访问[使用])
 @RestController
+@Slf4j
 public class TestController {
 
     //    @RequestMapping("/hi")
@@ -89,8 +93,54 @@ public class TestController {
         return path;
     }
 
+    // SpringMVC(Spring Web) 内置了 HttpServletRequest 和 HttpServletResponse
     @GetMapping("/getparam")
-    public String getParam(HttpServletRequest req, HttpServletResponse res){
+    public String getParam(HttpServletRequest req, HttpServletResponse res) {
         return req.getParameter("username");
+    }
+
+    // 获取所有的 cookie (servlet 写法)
+    @RequestMapping("/getck")
+    public String getCookie(HttpServletRequest request) {
+        Cookie[] cookies = request.getCookies();
+        for (Cookie ck : cookies) {
+            log.error(ck.getName() + ": " + ck.getValue());
+        }
+        return "get cookie";
+    }
+
+    // 获取单个cookie
+    @RequestMapping("/getck2")
+    public String getCookie2(@CookieValue("zhangsan") String val) {
+        return "Cookie Value: " + val;
+    }
+
+    @RequestMapping("/getua")
+    public String getUA(@RequestHeader("User-Agent") String userAgent) {
+        return userAgent;
+    }
+
+    // 存 session 信息
+    @RequestMapping("/setsess")
+    public String setSession(HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        session.setAttribute("userinfo", "userinfo");
+        return "Set Session Success";
+    }
+
+    // 读 session
+    @RequestMapping("/getsess")
+    public String getSession(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null && session.getAttribute("userinfo") != null) {
+            return (String) session.getAttribute("userinfo");
+        } else {
+            return "暂无 Session 信息";
+        }
+    }
+
+    @RequestMapping("/getsess2")
+    public String getSession2(@SessionAttribute(value = "userinfo", required = false) String userinfo) {
+        return userinfo;
     }
 }
