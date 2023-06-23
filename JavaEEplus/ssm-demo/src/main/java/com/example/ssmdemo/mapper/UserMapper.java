@@ -56,4 +56,10 @@ public interface UserMapper {
      * @return
      */
     int delById(@Param("id") Integer id);
+
+    List<Userinfo> getListByOrder(@Param("order") String order);
+
+    Userinfo login(@Param("username") String username, @Param("password") String password);
+
+    List<Userinfo> getListByName(@Param("username")String username);
 }

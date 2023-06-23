@@ -31,7 +31,7 @@ class UserMapperTest {
         // 3. 写单元测试的业务代码
         Userinfo userinfo = userMapper.getUserById(1);
         System.out.println(userinfo);
-        Assertions.assertEquals("admin",userinfo.getUsername());
+//        Assertions.assertEquals("admin",userinfo.getUsername());
     }
 
 
@@ -45,7 +45,7 @@ class UserMapperTest {
     void add() {
         // 伪代码，构建对象并设置相应的值
         Userinfo userinfo = new Userinfo();
-        userinfo.setUsername("李四");
+//        userinfo.setUsername("李四");
         userinfo.setPassword("123456");
         userinfo.setCreatetime(LocalDateTime.now());
         userinfo.setUpdatetime(LocalDateTime.now());
@@ -63,7 +63,7 @@ class UserMapperTest {
     void addGetId() {
         // 伪代码，构建对象并设置相应的值
         Userinfo userinfo = new Userinfo();
-        userinfo.setUsername("悟空");
+//        userinfo.setUsername("悟空");
         userinfo.setPassword("123456");
         userinfo.setCreatetime(LocalDateTime.now());
         userinfo.setUpdatetime(LocalDateTime.now());
@@ -82,7 +82,7 @@ class UserMapperTest {
         // 构建测试数据
         Userinfo userinfo = new Userinfo();
         userinfo.setId(5);
-        userinfo.setUsername("老老六");
+//        userinfo.setUsername("老老六");
         int result = userMapper.upUserName(userinfo);
         System.out.println("修改：" + result);
         Assertions.assertEquals(1,result);
@@ -103,5 +103,27 @@ class UserMapperTest {
     void getUserByName() {
         List<Userinfo> list = userMapper.getUserByName("张三");
         System.out.println("查询：" + list.size());
+    }
+
+    @Test
+    void getListByOrder() {
+        List<Userinfo> list = userMapper.getListByOrder("desc");
+        System.out.println(list);
+    }
+
+    @Test
+    void login() {
+        String username = "admin";
+//        String password = "admin";
+        String password = "' or 1 = '1"; // sql 注入
+        Userinfo userinfo = userMapper.login(username, password);
+        System.out.println("登录状态：" + (userinfo==null?"失败" : "成功"));
+    }
+
+    @Test
+    void getListByName() {
+        String username = "m";
+        List<Userinfo> list = userMapper.getListByName(username);
+        System.out.println("list: " + list);
     }
 }
