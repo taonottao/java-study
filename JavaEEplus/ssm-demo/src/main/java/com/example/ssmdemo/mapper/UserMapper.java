@@ -62,4 +62,14 @@ public interface UserMapper {
     Userinfo login(@Param("username") String username, @Param("password") String password);
 
     List<Userinfo> getListByName(@Param("username")String username);
+
+    int add2(Userinfo userinfo);
+
+    int add3(Userinfo userinfo);
+
+    List<Userinfo> getListByParam(String username, String password);
+
+    int update2(Userinfo userinfo);
+
+    int dels(List<Integer> ids);
 }

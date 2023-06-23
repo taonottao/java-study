@@ -2,6 +2,7 @@ package com.example.ssmdemo.entity;
 
 import lombok.Data;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
@@ -10,9 +11,10 @@ import java.time.LocalDateTime;
  * @Date 2023/6/20 23:22
  */
 @Data
-public class Userinfo {
+public class Userinfo implements Serializable {
+    private final  long serializableId = 1l;
     private int id;
-    private String name;
+    private String username;
     private String password;
     private String photo;
     private LocalDateTime createtime;

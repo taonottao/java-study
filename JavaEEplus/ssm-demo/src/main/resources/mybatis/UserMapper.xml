@@ -58,4 +58,89 @@
         select * from userinfo where username like concat('%', #{username}, '%')
     </select>
 
+    <insert id="add2">
+        insert into userinfo(username,password
+        <if test="photo!=null">
+            ,photo
+        </if>
+        )
+        values (#{username},#{password}
+        <if test="photo!=null">
+            ,#{photo}
+        </if>
+        )
+    </insert>
+
+    <insert id="add3">
+        insert into userinfo
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username!=null">
+                username,
+            </if>
+            <if test="password!=null">
+                password,
+            </if>
+            <if test="photo!=null">
+                photo,
+            </if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="username!=null">
+                #{username},
+            </if>
+            <if test="password!=null">
+                #{password},
+            </if>
+            <if test="photo!=null">
+                #{photo},
+            </if>
+        </trim>
+
+
+    </insert>
+
+    <select id="getListByParam" resultType="com.example.ssmdemo.entity.Userinfo">
+        select * from userinfo
+            <trim prefix="where" prefixOverrides="and">
+                <if test="username!=null">
+                    username=#{username}
+                </if>
+                <if test="password!=null">
+                    and password=#{password}
+                </if>
+            </trim>
+<!--        <where>-->
+<!--            <if test="username!=null">-->
+<!--                username=#{username}-->
+<!--            </if>-->
+<!--            <if test="password!=null">-->
+<!--                and password=#{password}-->
+<!--            </if>-->
+<!--        </where>-->
+    </select>
+
+    <update id="update2">
+        update userinfo
+        <set>
+            <if test="username!=null">
+                usename=#{username},
+            </if>
+            <if test="password!=null">
+                password=#{password},
+            </if>
+            <if test="photo!=null">
+                photo=#{photo},
+            </if>
+        </set>
+        where id=#{id}
+    </update>
+
+    <delete id="dels">
+        delete from userinfo where id in
+        <foreach collection="ids" open="(" close=")" item="id" separator=",">
+            #{id}
+        </foreach>
+    </delete>
+
 </mapper>
