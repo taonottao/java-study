@@ -8,6 +8,7 @@
     <title>登陆页面</title>
     <link rel="stylesheet" href="css/conmmon.css">
     <link rel="stylesheet" href="css/login.css">
+    <script src="js/jquery.min.js"></script>
 </head>
 
 <body>
@@ -36,10 +37,42 @@
                 <input type="password" id="password">
             </div>
             <div class="row">
-                <button id="submit">提交</button>
+                <button id="submit" onclick="mysub()">提交</button>
             </div>
         </div>
     </div>
+    <script>
+        function mysub(){
+            // 1.非空校验
+            var username = jQuery("#username");
+            var password = jQuery("#password");
+            if(username.val() == ""){
+                alert("请先输入用户名！");
+                username.focus(); // 将鼠标光标设置到用户名控件
+                return;
+            }
+            if(password.val() == ""){
+                alert("请先输入密码！");
+                password.focus();
+                return;
+            }
+            // 2.ajax请求登录接口
+            jQuery.ajax({
+                url:"/user/login",
+                type:"POST",
+                data:{"username":username.val(),"password":password.val()},
+                success:function (result){
+                    if(result!=null && result.code==200 && result.data!=null){
+                        // 登陆成功
+                        location.href = "myblog_list.html";
+                    }else {
+                        alert("用户名或密码错误!!!");
+                    }
+                }
+            })
+        }
+    </script>
+
 </body>
 
 </html>

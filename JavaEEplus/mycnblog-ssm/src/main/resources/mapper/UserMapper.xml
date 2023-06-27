@@ -4,4 +4,7 @@
     <insert id="reg">
         insert into userinfo(username, password) values (#{username}, #{password})
     </insert>
+    <select id="getUserByName" resultType="com.example.demo.entity.Userinfo">
+        select * from userinfo where username = #{username}
+    </select>
 </mapper>
