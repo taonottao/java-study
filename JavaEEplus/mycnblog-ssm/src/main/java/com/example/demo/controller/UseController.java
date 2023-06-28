@@ -2,6 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.common.AjaxResult;
 import com.example.demo.common.AppVariable;
+import com.example.demo.common.PasswordUtils;
 import com.example.demo.common.UserSessionUtils;
 import com.example.demo.entity.Userinfo;
 import com.example.demo.entity.vo.UserinfoVO;
@@ -38,6 +39,8 @@ public class UseController {
         || !StringUtils.hasLength(userinfo.getPassword())){
             return AjaxResult.fail(-1, "非法参数");
         }
+        // 密码加盐处理
+        userinfo.setPassword(PasswordUtils.encrypt(userinfo.getPassword()));
         return AjaxResult.success(userService.reg(userinfo));
     }
 
@@ -52,9 +55,9 @@ public class UseController {
         if(userinfo != null && userinfo.getId() >0){
             // 有效用户名
             // 判断两个密码是否相等
-            if(password.equals(userinfo.getPassword())){
+            if(PasswordUtils.check(password, userinfo.getPassword())){
                 // 登录成功
-                // todo:将用户存储到 session
+                // 将用户存储到 session
                 HttpSession session = request.getSession(true);
                 session.setAttribute(AppVariable.USER_SESSION_KEY, userinfo);
                 userinfo.setPassword("");// 返回前段之前隐藏敏感信息(密码)

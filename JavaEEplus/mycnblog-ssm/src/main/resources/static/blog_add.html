@@ -80,7 +80,7 @@
                     data:{"title":title.val(),"content":editor.getValue()},
                     success:function (result){
                         if(result != null && result.code == 200 && result.data == 1){
-                            alert("恭喜，文章发布成功！？")
+                            alert("恭喜，文章发布成功！")
                             location.href = "/myblog_list.html";
                         }else {
                             alert("抱歉，文章添加失败，请重试!")
