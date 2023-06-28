@@ -13,6 +13,7 @@
     <script src="editor.md/editormd.js"></script>
     <script src="editor.md/lib/marked.min.js"></script>
     <script src="editor.md/lib/prettify.min.js"></script>
+    <script src="js/common.js"></script>
 </head>
 
 <body>
@@ -32,14 +33,14 @@
         <div class="container-left">
             <div class="card">
                 <img src="img/doge.jpg" class="avtar" alt="">
-                <h3>比特小可爱</h3>
+                <h3 id="username"></h3>
                 <a href="http:www.github.com">github 地址</a>
                 <div class="counter">
                     <span>文章</span>
                     <span>分类</span>
                 </div>
                 <div class="counter">
-                    <span>2</span>
+                    <span id="artCount"></span>
                     <span>1</span>
                 </div>
             </div>
@@ -70,24 +71,7 @@
                 });
             }
 
-            // 获取当前url参数的公共方法
-            function getUrlValue(key){
-                // ex: ?id=1&v=2
-                var params = location.search;
-                if (params.length > 1) {
-                    // ex: id=1&v=2
-                    params = location.search.substring(1);
-                    var paramArr = params.split("&");
-                    for (var i = 0; i < paramArr.length; i++) {
-                        var kv = paramArr[i].split("=");
-                        if(kv[0] == key){
-                            // 是我要的参数
-                            return kv[1];
-                        }
-                    }
-                }
-                return "";
-            }
+
             // 查询文章详情
             function getArtDetail(id){
                 if (id == "") {
@@ -110,13 +94,39 @@
                             alert("查询失败！请重试！1");
                         }
                     }
-                })
+                });
             }
             getArtDetail(getUrlValue("id"))
             // todo: 查询用户的详情信息
             function showUser(uid){
-
+                jQuery.ajax({
+                    url:"/user/getuserbyid",
+                    type: "POST",
+                    data:{"id":uid},
+                    success:function (result){
+                        if (result != null && result.code == 200 && result.data.id > 0) {
+                            jQuery("#username").html(result.data.username);
+                            jQuery("#artCount").text(result.data.artCount);
+                        }else {
+                            alert("抱歉，查询用户信息失败，请重试！")
+                        }
+                    }
+                })
             }
+            // 阅读量 + 1
+            function updateRCount(){
+                // 先得到文章 id
+                var id = getUrlValue("id");
+                if(id != ""){
+                    jQuery.ajax({
+                        url:"/art/incr-rcount",
+                        type:"POST",
+                        data:{"id":id},
+                        success:function (result){}
+                    })
+                }
+            }
+            updateRCount();
     </script> 
 </body>
 

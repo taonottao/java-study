@@ -92,5 +92,26 @@ public class UseController {
         return AjaxResult.success(1);
     }
 
+    @RequestMapping("/getuserbyid")
+    public AjaxResult getUserById(Integer id) {
+        if (id == null || id <= 0) {
+            // 无效参数
+            return AjaxResult.fail(-1, "非法参数");
+        }
+        Userinfo userinfo = userService.getUserById(id);
+        if (userinfo == null || userinfo.getId() <= 0) {
+            return AjaxResult.fail(-1, "非法参数");
+        }
+        // 去除 userinfo 中的敏感信息，比如密码
+        userinfo.setPassword("");
+
+        UserinfoVO userinfoVO = new UserinfoVO();
+        BeanUtils.copyProperties(userinfo, userinfoVO);
+        // 查询当前用户发表的文章数
+        userinfoVO.setArtCount(articleService.getArtCountByUid(id));
+
+        return AjaxResult.success(userinfoVO);
+    }
+
 
 }

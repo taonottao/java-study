@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/conmmon.css">
     <link rel="stylesheet" href="css/blog_list.css">
     <script src="js/jquery.min.js"></script>
+    <script src="js/common.js"></script>
 </head>
 
 <body>
@@ -19,7 +20,7 @@
         <!-- 用来占据中间位置 -->
         <span class="spacer"></span>
         <a href="blog_list.html">主页</a>
-        <a href="blog_edit.html">写博客</a>
+        <a href="blog_add.html">写博客</a>
         <a href="javascript:logout()">注销</a>
         <!-- <a href="#">注销</a> -->
     </div>
@@ -93,7 +94,7 @@
                                 var artItem = result.data[i];
                                 artListDiv += '<div class="blog">';
                                 artListDiv += '<div class="title">'+artItem.title+'</div>';
-                                artListDiv += '<div class="date">'+artItem.createtime+'</div>';
+                                artListDiv += '<div class="date">'+artItem.updatetime+'</div>';
                                 artListDiv += '<div class="desc">';
                                 artListDiv += artItem.content;
                                 artListDiv += '</div>';
@@ -134,21 +135,7 @@
                 })
             }
         }
-        // 退出登录
-        function logout(){
-            if(confirm("确认注销？")){
-                jQuery.ajax({
-                    url:"/user/logout",
-                    type:"POST",
-                    data:{},
-                    success:function (result){
-                        if(result!=null && result.code==200){
-                            location.href = "/login.html";
-                        }
-                    }
-                })
-            }
-        }
+
     </script>
 </body>
 

@@ -22,4 +22,10 @@ public interface ArticleMapper {
 
     Articleinfo getDetail(@Param("id")Integer id);
 
+    int incrRCount(@Param("id")Integer id);
+
+    int add(Articleinfo articleinfo);
+
+    int update(Articleinfo articleinfo);
+
 }

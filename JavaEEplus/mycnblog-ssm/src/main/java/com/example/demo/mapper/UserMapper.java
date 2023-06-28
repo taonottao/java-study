@@ -18,4 +18,6 @@ public interface UserMapper {
     // 登录(根据用户名查询 userinfo 对象)
     Userinfo getUserByName(@Param("username") String username);
 
+    Userinfo getUserById(@Param("id")Integer id);
+
 }

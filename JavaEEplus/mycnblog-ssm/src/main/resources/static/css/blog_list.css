@@ -18,6 +18,7 @@
     color: #000;
     text-indent: 2em;
     margin-top: 10px;
+    word-break: break-all;
 }
 
 /* 博客的日期 */
