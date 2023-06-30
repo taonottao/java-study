@@ -128,7 +128,12 @@ public class ArticleController {
 
         // 分页公式的值 = (当前页码 - 1) * 每页最大显示条数
         int offsize = (pindex - 1) * psize;
+        // 文章列表数据
         List<Articleinfo> articleinfos = articleService.getListByPage(psize, offsize);
+        // 当前列表一共有多少页
+        // a. 总共有多少条数据
+        // b. 总条数/psize(每页最大显示条数)
+        // c. 使用进一法得到总页数
 
         return AjaxResult.success(articleinfos);
     }

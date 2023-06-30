@@ -20,9 +20,10 @@
         .container{
             padding-top: 80px;
             height: auto;
+            width: auto;
         }
         .container-right{
-            width: auto;
+            width: 1000px;
         }
         .blog-pagnation-wrapper{
             height: 40px;
@@ -46,6 +47,7 @@
 
     </style>
     <script src="js/jquery.min.js"></script>
+    <script src="js/common.js"></script>
 </head>
 
 <body>
@@ -64,28 +66,65 @@
     <div class="container">
         <!-- 右侧内容详情 -->
         <div class="container-right">
-            <!-- 每一篇博客包含标题, 摘要, 时间 -->
-            <div class="blog">
-                <div class="title">我的第一篇博客</div>
-                <div class="date">2021-06-02</div>
-                <div class="desc">正文</div>
-                <a href="blog_content.html?id=1" class="detail">查看全文 &gt;&gt;</a>
+            <div id="artListDiv">
             </div>
-
             <hr>
             <div class="blog-pagnation-wrapper">
-                <button class="blog-pagnation-item">首页</button> 
-                <button class="blog-pagnation-item">上一页</button>  
-                <button class="blog-pagnation-item">下一页</button>
-                <button class="blog-pagnation-item">末页</button>
+                <button onclick="goFirstPage()" class="blog-pagnation-item">首页</button>
+                <button onclick="goBeforePage()" class="blog-pagnation-item">上一页</button>
+                <button onclick="goNextPage()" class="blog-pagnation-item">下一页</button>
+                <button onclick="goLastPage()" class="blog-pagnation-item">末页</button>
             </div>
         </div>
     </div>
-    <script type="javascript">
+    <script>
         // 当前页码
         var pindex = 1;
         // 每页显示条数
         var psize = 2;
+        // 1. 先尝试得到当前 url 中的页码
+        pindex = getUrlValue("pindex")==""? 1 : getUrlValue("pindex");
+        // 2. 查询后端接口得到当前页面的数据，进行展示
+        function initPage(){
+            jQuery.ajax({
+                url:"/art/listbypage",
+                type:"POST",
+                data:{"pindex":pindex, "psize":psize},
+                success: function (result) {
+                    if (result != null && result.code == 200 && result.data.length > 0) {
+                        var artListHtml = "";
+                        for (var i = 0; i < result.data.length; i++) {
+                            var articleinfo = result.data[i];
+                            artListHtml += '<div class="blog">';
+                            artListHtml += '<div class="title">'+articleinfo.title+'</div>';
+                            artListHtml += '<div class="date">'+articleinfo.updatetime+'</div>';
+                            artListHtml += '<div class="desc">'+articleinfo.content+'</div>';
+                            artListHtml += '<a href="blog_content.html?id='+articleinfo.id+'" class="detail">查看全文 &gt;&gt;</a>'
+                            artListHtml += '</div>';
+                        }
+                        jQuery("#artListDiv").html(artListHtml);
+                    }
+                }
+            });
+        }
+        initPage();
+
+        function goFirstPage(){
+            location.href = "blog_list.html";
+        }
+        // 点击上一页按钮
+        function goBeforePage(){
+            if (pindex <= 1) {
+                alert("当前已经在首页了");
+                return;
+            }
+            pindex = parseInt(pindex) - 1;
+            location.href = "blog_list.html?pindex=" + pindex;
+        }
+        function goNextPage(){
+            pindex = parseInt(pindex) + 1;
+            location.href = "blog_list.html?pindex=" + pindex;
+        }
 
     </script>
 </body>

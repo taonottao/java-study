@@ -68,6 +68,8 @@ html, body {
 
 /* 右侧部分, 用来放置正文 */
 .container-right {
+    margin: 0 auto;
+    text-align: center;
     height: 100%;
     /* 和左侧部分中间留出 5px 间隙 */
     width: 795px;
@@ -76,6 +78,7 @@ html, body {
     background-color: rgba(255, 255, 255, 0.8);
     border-radius: 10px;
 }
+
 
 /* 展示用户信息的卡片 */
 .card {
