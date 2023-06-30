@@ -29,4 +29,8 @@
         where id=#{id} and uid=#{uid}
     </update>
 
+    <select id="getListByPage" resultType="com.example.demo.entity.Articleinfo">
+        select * from articleinfo limit #{psize} offset #{offsize}
+    </select>
+
 </mapper>

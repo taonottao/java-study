@@ -45,4 +45,7 @@ public class ArticleService {
         return articleMapper.update(articleinfo);
     }
 
+    public List<Articleinfo> getListByPage(Integer psize, Integer offsize) {
+        return articleMapper.getListByPage(psize, offsize);
+    }
 }

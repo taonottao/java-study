@@ -110,4 +110,27 @@ public class ArticleController {
         return AjaxResult.success(articleService.update(articleinfo));
     }
 
+    /**
+     * 查询列表根据分页
+     * @param pindex 当前页码（从1开始）
+     * @param psize 每页显示最大条数
+     * @return
+     */
+    @RequestMapping("/listbypage")
+    public AjaxResult getListByPage(Integer pindex, Integer psize) {
+        // 1. 参数矫正
+        if (pindex == null || pindex <= 1) {
+            pindex = 1;
+        }
+        if (psize == null || psize <= 1) {
+            psize = 2;
+        }
+
+        // 分页公式的值 = (当前页码 - 1) * 每页最大显示条数
+        int offsize = (pindex - 1) * psize;
+        List<Articleinfo> articleinfos = articleService.getListByPage(psize, offsize);
+
+        return AjaxResult.success(articleinfos);
+    }
+
 }
