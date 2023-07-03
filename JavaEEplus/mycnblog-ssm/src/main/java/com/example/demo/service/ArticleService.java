@@ -48,4 +48,8 @@ public class ArticleService {
     public List<Articleinfo> getListByPage(Integer psize, Integer offsize) {
         return articleMapper.getListByPage(psize, offsize);
     }
+
+    public int getCount(){
+        return articleMapper.getCount();
+    }
 }

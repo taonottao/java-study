@@ -5,7 +5,6 @@ import com.example.demo.common.UserSessionUtils;
 import com.example.demo.entity.Articleinfo;
 import com.example.demo.entity.Userinfo;
 import com.example.demo.service.ArticleService;
-import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -129,13 +129,19 @@ public class ArticleController {
         // 分页公式的值 = (当前页码 - 1) * 每页最大显示条数
         int offsize = (pindex - 1) * psize;
         // 文章列表数据
-        List<Articleinfo> articleinfos = articleService.getListByPage(psize, offsize);
+        List<Articleinfo> list = articleService.getListByPage(psize, offsize);
         // 当前列表一共有多少页
         // a. 总共有多少条数据
+        int totalCount = articleService.getCount();
         // b. 总条数/psize(每页最大显示条数)
+        double pcountdb = totalCount / (psize * 1.0);
         // c. 使用进一法得到总页数
+        int pcount = (int) Math.ceil(pcountdb);
+        HashMap<String, Object> result = new HashMap<>();
+        result.put("list", list);
+        result.put("pcount", pcount);
 
-        return AjaxResult.success(articleinfos);
+        return AjaxResult.success(result);
     }
 
 }

@@ -82,6 +82,8 @@
         var pindex = 1;
         // 每页显示条数
         var psize = 2;
+        // 最大页数
+        var pcount = 1;
         // 1. 先尝试得到当前 url 中的页码
         pindex = getUrlValue("pindex")==""? 1 : getUrlValue("pindex");
         // 2. 查询后端接口得到当前页面的数据，进行展示
@@ -91,10 +93,10 @@
                 type:"POST",
                 data:{"pindex":pindex, "psize":psize},
                 success: function (result) {
-                    if (result != null && result.code == 200 && result.data.length > 0) {
+                    if (result != null && result.code == 200 && result.data.list.length > 0) {
                         var artListHtml = "";
-                        for (var i = 0; i < result.data.length; i++) {
-                            var articleinfo = result.data[i];
+                        for (var i = 0; i < result.data.list.length; i++) {
+                            var articleinfo = result.data.list[i];
                             artListHtml += '<div class="blog">';
                             artListHtml += '<div class="title">'+articleinfo.title+'</div>';
                             artListHtml += '<div class="date">'+articleinfo.updatetime+'</div>';
@@ -103,6 +105,7 @@
                             artListHtml += '</div>';
                         }
                         jQuery("#artListDiv").html(artListHtml);
+                        pcount = result.data.pcount;
                     }
                 }
             });
@@ -122,8 +125,19 @@
             location.href = "blog_list.html?pindex=" + pindex;
         }
         function goNextPage(){
+            if (pindex >= pcount) {
+                alert("已经在末页了");
+                return;
+            }
             pindex = parseInt(pindex) + 1;
             location.href = "blog_list.html?pindex=" + pindex;
+        }
+        function goLastPage(){
+            if (pindex >= pcount) {
+                alert("已经在末页了");
+                return;
+            }
+            location.href = "blog_list.html?pindex=" + pcount;
         }
 
     </script>

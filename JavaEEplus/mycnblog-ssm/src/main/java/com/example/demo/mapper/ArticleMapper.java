@@ -30,4 +30,6 @@ public interface ArticleMapper {
 
     List<Articleinfo> getListByPage(@Param("psize")Integer psize, @Param("offsize")Integer offsize);
 
+    int getCount();
+
 }
