@@ -9,9 +9,14 @@ package Demo3;
 class Counter{
     private int count = 0;
 
-    public void add(){
-        count++;
+    synchronized public void add(){
+            count++;
     }
+//    public void add(){
+//        synchronized(this){
+//            count++;
+//        }
+//    }
 
     public int getCount() {
         return count;
