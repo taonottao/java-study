@@ -1,7 +1,5 @@
 package Demo2;
 
-import javax.swing.plaf.SliderUI;
-
 /**
  * @version 1.0
  * @Author T-WANG

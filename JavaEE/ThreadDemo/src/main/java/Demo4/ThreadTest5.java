@@ -1,5 +1,7 @@
 package Demo4;
 
+import java.lang.reflect.WildcardType;
+
 /**
  * @version 1.0
  * @Author T-WANG
@@ -49,6 +51,36 @@ class MyBlockingQueue {
 
 public class ThreadTest5 {
     public static void main(String[] args) {
+        MyBlockingQueue queue = new MyBlockingQueue();
+        // 消费者
+        Thread t1 = new Thread(() -> {
+            while (true) {
+                int val = 0;
+                try {
+                    val = queue.take();
+                    System.out.println("消费元素：" + val);
+                    Thread.sleep(1000);
 
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t1.start();
+
+        // 生产者
+        Thread t2 = new Thread(() -> {
+            int val = 0;
+            while (true) {
+                try {
+                    queue.put(val);
+                    System.out.println("生产元素：" + val);
+                    val++;
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+        t2.start();
     }
 }
