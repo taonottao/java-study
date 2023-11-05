@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Demo2</title>
+</head>
+<body>
+<!--    <div class="one">-->
+<!--        <div class="two">这个元素要居中</div>-->
+<!--    </div>-->
+<!--    <div>hello</div>-->
+<!--    <div>hello</div>-->
+<!--    <div>1</div>
+    <div>2</div>
+    -->
+<!--    <span>1</span>
+    <span>2</span>
+-->
+    <div class="one">
+        <div class="two">1</div>
+        <div class="two">2</div>
+        <div class="two">3</div>
+        <div class="two">4</div>
+        <div class="two">5</div>
+    </div>
+
+    <style>
+        .one {
+            width: 1000px;
+            height: 300px;
+            background-color: gray;
+            /*开启弹性布局*/
+            display: flex;
+            /*水平方向*/
+            /*justify-content: center;*/
+            /*justify-content: space-around;*/
+            justify-content: space-between;
+            /*垂直方向*/
+            align-items: center;
+        }
+        .two {
+            width: 150px;
+            height: 100px;
+            background-color: green;
+        }
+        * {
+            /*此时边框不会撑大*/
+            box-sizing: border-box;
+        }
+        /*.two{
+            width: 500px;
+            height: 300px;
+            background-color: gray;
+
+            margin-left: auto;
+            margin-right: auto;
+        }*/
+
+        div {
+            /*box-sizing: border-box;*/
+            /*width: 500px;*/
+            /*height: 300px;*/
+            /*background-color: gray;*/
+
+            /*margin-top: 50px;*/
+
+            /*border: blue 20px solid;*/
+            /*边框还可以分开设置*/
+            /*border-left:red 20px solid;*/
+            /*border-right: green 20px dotted;*/
+            /*border-top: blue 20px dashed;*/
+            /*border-bottom: orange 20px solid;*/
+
+            /*给四个方向都设置内边距*/
+            /*padding: 30px;*/
+            /*也可以给四个方向分别设置*/
+            /*padding-left: 20px;*/
+            /*padding-top: 50px;*/
+
+            /*给上下设置 30px 给左右设置20px*/
+            /*padding: 30px 20px;*/
+            /*按照 上右下左 顺时针顺序设置*/
+            /*padding: 10px 20px 30px 40px;*/
+        }
+        /*span {*/
+            /*display: block;*/
+            /*width: 500px;*/
+            /*height: 300px;*/
+        /*}*/
+
+    </style>
+</body>
+</html>

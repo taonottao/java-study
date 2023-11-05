@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>聚合搜索</title>
+    <script src="jquery-1.9.0.min.js"></script>
+</head>
+<body>
+        <div style="width: 100%;text-align: center;">
+            <input type="button" value="必应" onclick="upSearch('https://www.bing.com')">&nbsp;&nbsp;&nbsp;
+            <input type="button" value="搜狗" onclick="upSearch('https://www.sogou.com')">&nbsp;&nbsp;&nbsp;
+            <input type="button" value="360" onclick="upSearch('https://www.so.com')">&nbsp;&nbsp;&nbsp;
+        </div>
+        <hr>
+        <iframe id="ifr" style="width: 100%;height: 600px;" src="https://www.bing.com"></iframe>
+        <script>
+            function upSearch(url){
+                jQuery("#ifr").attr("src",url);
+            }
+        </script>
+</body>
+</html>

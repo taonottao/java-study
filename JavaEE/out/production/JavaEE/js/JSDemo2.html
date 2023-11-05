@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>js demo2</title>
+    <script src="jquery-1.9.0.min.js"></script>
+</head>
+<body>
+        <div>
+                <h2>猜数字</h2>
+                玩家输入一个 1-10 数字: <input id="input_num" type="text"><p></p>
+<!--                <input type="button" value=" 查看结果 " onclick="selectResult()">-->
+                <input type="button" value=" 查看结果 " onclick="selectResultJq()">
+                <div id="result_div">
+
+                </div>
+        </div>
+
+        <hr>
+
+        <img width="200px" id="img_logo" src="https://www.baidu.com/img/PCtm_d9c8750bed0b3c7d089fa7d55720d6cf.png">
+
+        <p></p>
+
+        <input onclick="upImg()" type="button" value=" 更换图片 ">
+
+        <br>
+
+        <input type="button" value=" 添 加 " onclick="add('张三', '123')">&nbsp;&nbsp;&nbsp;
+        <input type="button" value=" 修 改 " onclick="updata('张三', '1234')">&nbsp;&nbsp;&nbsp;
+        <input type="button" value=" 删 除 ">&nbsp;&nbsp;&nbsp;
+        <input type="button" value=" 查 询 ">&nbsp;&nbsp;&nbsp;
+
+        <script>
+
+            // jquery猜数字游戏
+            function selectResultJq(){
+                // 产生随机数 1-10
+                var randNum = 1+Math.floor(Math.random()*10);
+                //  var userInputNum = document.getElementById("input_num").value;
+                var userInputNum = jQuery("#input_num").val();
+                // alert(userInputNum);
+                if(randNum==userInputNum){
+                    msg="<h4>恭喜, 猜对了</h4>";
+                }else {
+                    msg="<h4>抱歉,猜错了 , 正确的数字是: "+randNum+"</h4>";
+                }
+                // document.getElementById("result_div").innerHTML=msg;
+                jQuery("#result_div").html(msg);
+            }
+
+            // 原生js猜数字游戏
+            function selectResult(){
+                // 产生随机数 1-10
+                var randNum = 1+Math.floor(Math.random()*10);
+                var userInputNum = document.getElementById("input_num").value;
+                var msg;
+                if(randNum==userInputNum){
+                    msg="<h4>恭喜, 猜对了</h4>";
+                }else {
+                    msg="<h4>抱歉,猜错了 , 正确的数字是: "+randNum+"</h4>";
+                }
+                document.getElementById("result_div").innerHTML=msg;
+            }
+
+            function upImg(){
+                var sg_img = "https://dlweb.sogoucdn.com/pcsearch/web/index/images/logo_880x280_06c7476.png?v=628ed034";
+                document.getElementById("img_logo").src = sg_img;
+            }
+
+            // 1.字面量的方法创建对象
+            var student = {
+                id:1,
+                name:"蔡徐坤",
+                skill:"唱跳rap篮球",
+                sayHello: function (){
+                    alert("hello");
+                }
+            };
+            // console.log(student.name);
+            // student.sayHello();
+
+            // 修改方法
+            function updata(){
+                alert("执行了修改方法");
+                for(var item of arguments){
+                    console.log(item);
+                }
+            }
+
+            // alert("111  ");
+
+            // 添加方法
+            function add(name, password){
+                alert("执行了添加方法!\n name="+name+"\n password="+password);
+                return "hello function";
+            }
+
+            // var funName = prompt("输入方法名: ");
+            // eval(funName+"()");
+
+            // var result = add();
+            // console.log(result);
+
+          // for (var i = 0; i < 5; i++) {
+          //   console.log("i:"+i);
+          // }
+
+          // var arr = new Array();
+          // arr.push(1);
+          // arr.push("hello");
+          // arr.push(false);
+
+          // 删除操作
+          // arr.splice(1,1);
+          // 截取操作, 左闭右开, 不会改变原数组的结构
+          // var obj = arr.slice(1,2);
+          // console.log(obj);
+
+          // 查询并删除最后一个元素
+          //   console.log(arr.pop());
+
+          // console.log(arr[2]);
+
+          // for (var i = 0; i < arr.length; i++) {
+          //     console.log(arr[i]);
+          // }
+          // for(var item of arr){
+          //     console.log(item);
+          // }
+
+        </script>
+</body>
+</html>
