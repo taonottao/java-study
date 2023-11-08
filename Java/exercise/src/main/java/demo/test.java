@@ -13,5 +13,6 @@ public class test {
 
         String ret = proxy.sing("姬霓太美");
         System.out.println(ret);
+
     }
 }
