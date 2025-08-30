@@ -616,6 +616,10 @@ public class Java11FeaturesDemo {
         int iterations = 100_000;
         String testString = "  \t\n  Hello Java 11 World  \u2000\u2001  ";
         
+        // 定义Optional变量用于性能测试
+        Optional<String> emptyOpt = Optional.empty();
+        Optional<String> presentOpt = Optional.of("test");
+        
         // 测试 strip vs trim
         long stripStart = System.nanoTime();
         for (int i = 0; i < iterations; i++) {
@@ -642,13 +646,23 @@ public class Java11FeaturesDemo {
         }
         long isEmptyTime = System.nanoTime() - isEmptyStart;
         
-        metrics.put("strip()耗时(ms)", stripTime / 1_000_000.0);
-        metrics.put("trim()耗时(ms)", trimTime / 1_000_000.0);
-        metrics.put("isBlank()耗时(ms)", isBlankTime / 1_000_000.0);
-        metrics.put("isEmpty()耗时(ms)", isEmptyTime / 1_000_000.0);
+        int presentSink = 0; // 防止JIT消除，累加到metrics
+        long isPresentStart = System.nanoTime();
+        for (int i = 0; i < iterations; i++) {
+            if (!emptyOpt.isPresent()) { presentSink++; }
+            if (!presentOpt.isPresent()) { presentSink++; }
+        }
+        long isPresentTime = System.nanoTime() - isPresentStart;
+        
+        metrics.put("String.strip()耗时(ms)", stripTime / 1_000_000.0);
+        metrics.put("String.trim()耗时(ms)", trimTime / 1_000_000.0);
+        metrics.put("String.isBlank()耗时(ms)", isBlankTime / 1_000_000.0);
+        metrics.put("String.isEmpty()耗时(ms)", isEmptyTime / 1_000_000.0);
+        metrics.put("!Optional.isPresent()耗时(ms)", isPresentTime / 1_000_000.0);
         metrics.put("String测试迭代次数", iterations);
         metrics.put("strip相对trim倍数", (double) stripTime / trimTime);
         metrics.put("isBlank相对isEmpty倍数", (double) isBlankTime / isEmptyTime);
+        metrics.put("Optional !isPresent() dummy", presentSink);
     }
     
     /**
@@ -704,10 +718,11 @@ public class Java11FeaturesDemo {
         }
         long isEmptyTime = System.nanoTime() - isEmptyStart;
         
+        int presentSink = 0; // 防止JIT消除，累加到metrics
         long isPresentStart = System.nanoTime();
         for (int i = 0; i < iterations; i++) {
-            !emptyOpt.isPresent();
-            !presentOpt.isPresent();
+            if (!emptyOpt.isPresent()) { presentSink++; }
+            if (!presentOpt.isPresent()) { presentSink++; }
         }
         long isPresentTime = System.nanoTime() - isPresentStart;
         
@@ -715,6 +730,7 @@ public class Java11FeaturesDemo {
         metrics.put("!Optional.isPresent()耗时(ms)", isPresentTime / 1_000_000.0);
         metrics.put("Optional测试迭代次数", iterations);
         metrics.put("isEmpty相对!isPresent倍数", (double) isEmptyTime / isPresentTime);
+        metrics.put("Optional !isPresent() dummy", presentSink);
     }
     
     /**

@@ -172,6 +172,7 @@ public class HashSetDemo {
             // 通过反射获取内部的 HashMap
             Field mapField = HashSet.class.getDeclaredField("map");
             mapField.setAccessible(true);
+            @SuppressWarnings("unchecked")
             HashMap<String, Object> internalMap = (HashMap<String, Object>) mapField.get(hashSet);
             
             log.info("空 HashSet 的内部 HashMap: {}", internalMap);
@@ -186,6 +187,7 @@ public class HashSetDemo {
             // 获取 HashMap 的内部数组
             Field tableField = HashMap.class.getDeclaredField("table");
             tableField.setAccessible(true);
+            @SuppressWarnings("unchecked")
             Object[] table = (Object[]) tableField.get(internalMap);
             
             if (table != null) {

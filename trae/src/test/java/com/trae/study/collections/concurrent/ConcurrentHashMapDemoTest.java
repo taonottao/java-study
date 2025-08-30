@@ -288,18 +288,18 @@ class ConcurrentHashMapDemoTest {
         assertNotNull(result, "基准测试结果不应为null");
         assertNotNull(result.getTestName(), "测试名称不应为null");
         assertTrue(result.getExecutionTimeMs() > 0, "执行时间应该大于0");
-        assertNotNull(result.getMetrics(), "指标不应为null");
-        assertFalse(result.getMetrics().isEmpty(), "指标不应为空");
+        assertNotNull(result.getAdditionalMetrics(), "指标不应为null");
+        assertFalse(result.getAdditionalMetrics().isEmpty(), "指标不应为空");
         
         // 验证关键指标存在
-        assertTrue(result.getMetrics().containsKey("单线程操作/秒"), 
+        assertTrue(result.getAdditionalMetrics().containsKey("单线程操作/秒"), 
             "应该包含单线程性能指标");
-        assertTrue(result.getMetrics().containsKey("总测试时间(ms)"), 
+        assertTrue(result.getAdditionalMetrics().containsKey("总测试时间(ms)"), 
             "应该包含总测试时间");
         
         log.info("性能基准测试验证通过: {}", result.getTestName());
         log.info("执行时间: {}ms", result.getExecutionTimeMs());
-        log.info("指标数量: {}", result.getMetrics().size());
+        log.info("指标数量: {}", result.getAdditionalMetrics().size());
     }
     
     @Test

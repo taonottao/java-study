@@ -1,13 +1,12 @@
 package com.study.cache;
 
-import cn.hutool.core.date.DateUtil;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import java.time.LocalDateTime;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 /**
  * 高级版LRU缓存实现
@@ -116,7 +115,6 @@ public class AdvancedLRUCache<K, V> {
         this.tail = new CacheNode<>(null, -1);
         this.head.next = this.tail;
         this.tail.prev = this.head;
-        
         log.info("创建AdvancedLRUCache，容量：{}，线程安全：{}", capacity, threadSafe);
     }
     
@@ -289,14 +287,22 @@ public class AdvancedLRUCache<K, V> {
     }
     
     private void doCleanupExpired() {
-        long expiredCount = cache.entrySet().removeIf(entry -> {
-            CacheNode<V> node = entry.getValue();
-            if (node.isExpired()) {
-                removeFromList(node);
-                return true;
-            }
-            return false;
-        });
+        long expiredCount = 0;
+        
+        // 先收集过期的键，然后移除
+        var expiredKeys = cache.entrySet().stream()
+            .filter(entry -> entry.getValue().isExpired())
+            .map(entry -> {
+                removeFromList(entry.getValue());
+                return entry.getKey();
+            })
+            .collect(Collectors.toList());
+        
+        // 移除过期的缓存项
+        for (K key : expiredKeys) {
+            cache.remove(key);
+            expiredCount++;
+        }
         
         stats.expiredCount += expiredCount;
         if (expiredCount > 0) {

@@ -82,6 +82,7 @@ public class LinkedHashSetDemo {
             // 1. 获取内部 LinkedHashMap
             Field mapField = HashSet.class.getDeclaredField("map");
             mapField.setAccessible(true);
+            @SuppressWarnings("unchecked")
             LinkedHashMap<String, Object> internalMap = 
                 (LinkedHashMap<String, Object>) mapField.get(linkedHashSet);
             

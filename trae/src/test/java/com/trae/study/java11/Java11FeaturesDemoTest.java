@@ -470,10 +470,10 @@ class Java11FeaturesDemoTest {
             assertNotNull(result);
             assertEquals("Java 11 特性性能测试", result.getTestName());
             assertTrue(result.getExecutionTimeMs() > 0);
-            assertNotNull(result.getMetrics());
+            assertNotNull(result.getAdditionalMetrics());
             
             // 验证关键指标存在
-            Map<String, Object> metrics = result.getMetrics();
+            Map<String, Object> metrics = result.getAdditionalMetrics();
             assertTrue(metrics.containsKey("String方法测试耗时(ms)"));
             assertTrue(metrics.containsKey("Files IO测试耗时(ms)"));
             assertTrue(metrics.containsKey("Optional测试耗时(ms)"));

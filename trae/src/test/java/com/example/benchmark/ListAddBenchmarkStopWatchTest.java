@@ -1,8 +1,8 @@
 package com.example.benchmark;
 
 import cn.hutool.core.collection.CollUtil;
-import com.example.model.BenchmarkResultDTO;
-import com.example.util.StopWatchUtil;
+import com.trae.study.dto.BenchmarkResultDTO;
+import com.trae.study.util.StopWatchUtil;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -35,14 +35,14 @@ class ListAddBenchmarkStopWatchTest {
         });
 
         BenchmarkResultDTO arrayDto = BenchmarkResultDTO.builder()
-                .benchmarkName("ArrayList-add")
+                .testName("ArrayList-add")
                 .sampleSize(n)
                 .elapsedMs(arrayListMs)
                 .notes("尾部追加")
                 .build();
 
         BenchmarkResultDTO linkedDto = BenchmarkResultDTO.builder()
-                .benchmarkName("LinkedList-add")
+                .testName("LinkedList-add")
                 .sampleSize(n)
                 .elapsedMs(linkedListMs)
                 .notes("尾部追加")
@@ -52,7 +52,7 @@ class ListAddBenchmarkStopWatchTest {
         assertTrue(arrayDto.getElapsedMs() >= 0 && linkedDto.getElapsedMs() >= 0);
 
         System.out.printf("StopWatch benchmark: %s ms=%d, %s ms=%d%n",
-                arrayDto.getBenchmarkName(), arrayDto.getElapsedMs(),
-                linkedDto.getBenchmarkName(), linkedDto.getElapsedMs());
+                arrayDto.gettestName(), arrayDto.getElapsedMs(),
+                linkedDto.gettestName(), linkedDto.getElapsedMs());
     }
 }

@@ -131,7 +131,7 @@ class ArrayListSourceDemoTest {
                      "修改后的原始列表不应为空");
         
         // 验证视图特性
-        assertTrue(result.isIsViewUpdated(), "子列表应该是视图，修改应影响原列表");
+        assertTrue(result.isViewUpdated(), "子列表应该是视图，修改应影响原列表");
         assertEquals("subList.set(1, \"C_MODIFIED\")", result.getOperation(), 
                     "操作描述应正确");
         
@@ -143,7 +143,7 @@ class ArrayListSourceDemoTest {
                    "原始列表不应包含原始值");
         
         log.info("subList 视图测试通过: 视图特性={}, 操作={}", 
-                result.isIsViewUpdated(), result.getOperation());
+                result.isViewUpdated(), result.getOperation());
     }
     
     @Test

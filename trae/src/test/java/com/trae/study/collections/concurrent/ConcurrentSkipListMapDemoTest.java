@@ -360,11 +360,11 @@ class ConcurrentSkipListMapDemoTest {
         assertNotNull(result, "基准测试结果不应该为null");
         assertEquals("ConcurrentSkipListMap 性能基准测试", result.getTestName());
         assertTrue(result.getExecutionTimeMs() > 0, "执行时间应该大于0");
-        assertNotNull(result.getMetrics(), "性能指标不应该为null");
-        assertFalse(result.getMetrics().isEmpty(), "性能指标不应该为空");
+        assertNotNull(result.getAdditionalMetrics(), "性能指标不应该为null");
+        assertFalse(result.getAdditionalMetrics().isEmpty(), "性能指标不应该为空");
         
         // 验证关键性能指标存在
-        Map<String, Object> metrics = result.getMetrics();
+        Map<String, Object> metrics = result.getAdditionalMetrics();
         assertTrue(metrics.containsKey("插入操作平均时间(ns)"), "应该包含插入操作时间");
         assertTrue(metrics.containsKey("查询操作平均时间(ns)"), "应该包含查询操作时间");
         assertTrue(metrics.containsKey("删除操作平均时间(ns)"), "应该包含删除操作时间");

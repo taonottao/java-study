@@ -201,6 +201,7 @@ public class TreeSetDemo {
             // 通过反射查看内部 TreeMap
             Field mapField = TreeSet.class.getDeclaredField("m");
             mapField.setAccessible(true);
+            @SuppressWarnings("unchecked")
             TreeMap<Integer, Object> internalMap = (TreeMap<Integer, Object>) mapField.get(treeSet);
             
             System.out.println("TreeSet 内部使用 TreeMap: " + (internalMap != null));

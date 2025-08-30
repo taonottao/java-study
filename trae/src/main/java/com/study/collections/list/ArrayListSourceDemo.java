@@ -4,7 +4,6 @@ import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.*;
-import java.util.concurrent.ConcurrentModificationException;
 
 /**
  * ArrayList 源码级演示
@@ -54,7 +53,7 @@ public class ArrayListSourceDemo {
         private List<String> originalList;
         private List<String> subListView;
         private List<String> originalAfterSubListModification;
-        private boolean isViewUpdated;
+        private boolean viewUpdated;  // 修改字段名，避免Lombok生成isIsViewUpdated方法
         private String operation;
     }
     
@@ -267,10 +266,10 @@ public class ArrayListSourceDemo {
         
         // 检查原始列表是否受影响
         result.setOriginalAfterSubListModification(new ArrayList<>(originalList));
-        result.setIsViewUpdated(!originalList.get(2).equals("C"));
+        result.setViewUpdated(!originalList.get(2).equals("C"));
         
         log.info("修改子列表后，原始列表: {}", originalList);
-        log.info("子列表确实是视图: {}", result.isIsViewUpdated());
+        log.info("子列表确实是视图: {}", result.isViewUpdated());
         
         return result;
     }
@@ -407,7 +406,7 @@ public class ArrayListSourceDemo {
         log.info("扩容次数: {}, 最终容量: {}", growthResult.getGrowthCount(), growthResult.getFinalCapacity());
         log.info("ensureCapacity 性能提升: {}%", capacityResults.get("improvementPercent"));
         log.info("fail-fast 异常: {}", failFastResult.isExceptionThrown() ? "已触发" : "未触发");
-        log.info("subList 视图特性: {}", subListResult.isIsViewUpdated() ? "确认" : "异常");
+        log.info("subList 视图特性: {}", subListResult.isViewUpdated() ? "确认" : "异常");
         log.info("安全删除结果: {}", safeRemovalResult);
     }
 }
