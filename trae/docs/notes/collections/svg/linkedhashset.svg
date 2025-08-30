@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="360" viewBox="0 0 960 360" role="img" aria-label="LinkedHashSet structure">
+  <defs>
+    <style>
+      .title{font:600 14px Segoe UI,Arial; fill:#2b6cb0}
+      .text{font:12px Segoe UI,Arial; fill:#2d3748}
+      .note{font:12px Segoe UI,Arial; fill:#718096}
+      .bucket{fill:#edf2f7;stroke:#4a5568;stroke-width:1}
+      .node{fill:#e6fffa;stroke:#2c7a7b;stroke-width:1}
+      .order{fill:#fefcbf;stroke:#b7791f;stroke-width:1}
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#555" />
+    </marker>
+  </defs>
+
+  <text x="20" y="28" class="title">LinkedHashSet：Hash + 双向链表维持顺序</text>
+
+  <!-- buckets -->
+  <g transform="translate(20,60)">
+    <rect x="0" y="0" width="160" height="210" class="bucket"/>
+    <text x="10" y="20" class="text">table[...]: Node(key)</text>
+  </g>
+
+  <!-- insertion order list -->
+  <g transform="translate(220,60)">
+    <rect x="0" y="0" width="160" height="50" class="order"/>
+    <text x="10" y="30" class="text">head</text>
+    <rect x="180" y="0" width="160" height="50" class="order"/>
+    <text x="190" y="30" class="text">node A</text>
+    <rect x="360" y="0" width="160" height="50" class="order"/>
+    <text x="370" y="30" class="text">node B</text>
+    <rect x="540" y="0" width="160" height="50" class="order"/>
+    <text x="550" y="30" class="text">tail</text>
+
+    <line x1="160" y1="25" x2="180" y2="25" stroke="#b7791f" marker-end="url(#arrow)"/>
+    <line x1="340" y1="25" x2="360" y2="25" stroke="#b7791f" marker-end="url(#arrow)"/>
+    <line x1="520" y1="25" x2="540" y2="25" stroke="#b7791f" marker-end="url(#arrow)"/>
+  </g>
+
+  <text x="20" y="330" class="note">可维护插入序或访问序（accessOrder=true）。迭代成本接近 HashSet，同时具备顺序特性。</text>
+</svg>

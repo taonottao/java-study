@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="420" viewBox="0 0 980 420" role="img" aria-label="TreeSet (Red-Black Tree) structure">
+  <defs>
+    <style>
+      .title{font:600 14px Segoe UI,Arial; fill:#2b6cb0}
+      .text{font:12px Segoe UI,Arial; fill:#2d3748}
+      .note{font:12px Segoe UI,Arial; fill:#718096}
+      .node{stroke:#4a5568;stroke-width:1}
+      .red{fill:#fed7d7;stroke:#c53030}
+      .black{fill:#e2e8f0;stroke:#2d3748}
+    </style>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#555" />
+    </marker>
+  </defs>
+
+  <text x="20" y="28" class="title">TreeSet：基于 TreeMap 的红黑树</text>
+
+  <!-- sample RB tree -->
+  <g transform="translate(60,60)">
+    <circle cx="420" cy="40" r="24" class="node black"/>
+    <text x="415" y="44" class="text">M</text>
+
+    <line x1="420" y1="64" x2="260" y2="120" stroke="#4a5568"/>
+    <line x1="420" y1="64" x2="580" y2="120" stroke="#4a5568"/>
+
+    <circle cx="260" cy="120" r="22" class="node red"/>
+    <text x="255" y="124" class="text">F</text>
+
+    <circle cx="580" cy="120" r="22" class="node red"/>
+    <text x="575" y="124" class="text">T</text>
+
+    <line x1="260" y1="142" x2="180" y2="200" stroke="#4a5568"/>
+    <line x1="260" y1="142" x2="340" y2="200" stroke="#4a5568"/>
+    <line x1="580" y1="142" x2="500" y2="200" stroke="#4a5568"/>
+    <line x1="580" y1="142" x2="660" y2="200" stroke="#4a5568"/>
+
+    <circle cx="180" cy="200" r="18" class="node black"/>
+    <text x="175" y="204" class="text">B</text>
+    <circle cx="340" cy="200" r="18" class="node black"/>
+    <text x="335" y="204" class="text">J</text>
+    <circle cx="500" cy="200" r="18" class="node black"/>
+    <text x="495" y="204" class="text">P</text>
+    <circle cx="660" cy="200" r="18" class="node black"/>
+    <text x="655" y="204" class="text">X</text>
+  </g>
+
+  <text x="20" y="340" class="note">比较器决定排序与去重（compare==0 视为重复）。插入/删除维持红黑树平衡，复杂度 O(logN)。</text>
+</svg>

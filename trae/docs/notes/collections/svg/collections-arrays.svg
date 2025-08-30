@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="920" height="360" viewBox="0 0 920 360" role="img" aria-label="Collections & Arrays operations">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#555" />
+    </marker>
+    <style>
+      .box{fill:#f7fafc;stroke:#2b6cb0;stroke-width:1.5;rx:6;ry:6}
+      .title{font:600 14px Segoe UI,Arial; fill:#2b6cb0}
+      .text{font:12px Segoe UI,Arial; fill:#2d3748}
+      .note{font:12px Segoe UI,Arial; fill:#718096}
+      .mutate{fill:#fefcbf;stroke:#b7791f;stroke-width:1.5;rx:6;ry:6}
+      .view{fill:#e6fffa;stroke:#2c7a7b;stroke-width:1.5;rx:6;ry:6}
+      .copy{fill:#e9d8fd;stroke:#6b46c1;stroke-width:1.5;rx:6;ry:6}
+      .immu{fill:#c6f6d5;stroke:#2f855a;stroke-width:1.5;rx:6;ry:6}
+    </style>
+  </defs>
+
+  <text x="20" y="28" class="title">Collections & Arrays 常见操作影响</text>
+
+  <!-- 原始数据源 -->
+  <rect x="20" y="50" width="220" height="80" class="box"/>
+  <text x="30" y="75" class="title">原始 List/数组</text>
+  <text x="30" y="98" class="text">例如: List<Integer> / int[]</text>
+
+  <!-- 视图：Arrays.asList -->
+  <rect x="280" y="50" width="240" height="80" class="view"/>
+  <text x="290" y="75" class="title" fill="#285e61">视图</text>
+  <text x="290" y="98" class="text">Arrays.asList(arr) 固定长度视图</text>
+  <line x1="240" y1="90" x2="280" y2="90" stroke="#319795" marker-end="url(#arrow)"/>
+
+  <!-- 拷贝：copyOf -->
+  <rect x="560" y="50" width="180" height="80" class="copy"/>
+  <text x="570" y="75" class="title" fill="#553c9a">拷贝</text>
+  <text x="570" y="98" class="text">Arrays.copyOf(arr, n)</text>
+  <line x1="520" y1="90" x2="560" y2="90" stroke="#6b46c1" marker-end="url(#arrow)"/>
+
+  <!-- 原地修改：shuffle/sort/rotate/fill -->
+  <rect x="280" y="160" width="260" height="120" class="mutate"/>
+  <text x="290" y="185" class="title" fill="#744210">原地修改</text>
+  <text x="290" y="208" class="text">Collections.shuffle/rotate/fill</text>
+  <text x="290" y="228" class="text">Collections.sort 或 list.sort</text>
+  <text x="290" y="248" class="note">必要时先拷贝以保留原数据</text>
+  <line x1="240" y1="200" x2="280" y2="200" stroke="#b7791f" marker-end="url(#arrow)"/>
+
+  <!-- 不可变集合：List.of / Set.of -->
+  <rect x="560" y="160" width="240" height="120" class="immu"/>
+  <text x="570" y="185" class="title" fill="#276749">不可变</text>
+  <text x="570" y="208" class="text">List.of/Set.of/Map.of</text>
+  <text x="570" y="228" class="note">返回不可修改集合</text>
+  <line x1="520" y1="200" x2="560" y2="200" stroke="#2f855a" marker-end="url(#arrow)"/>
+
+  <!-- 辅助提示 -->
+  <text x="20" y="320" class="note">binarySearch 需有序；视图与拷贝的差异：视图共享存储，拷贝独立存储。</text>
+</svg>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="360" viewBox="0 0 940 360" role="img" aria-label="HashSet structure">
+  <defs>
+    <style>
+      .title{font:600 14px Segoe UI,Arial; fill:#2b6cb0}
+      .text{font:12px Segoe UI,Arial; fill:#2d3748}
+      .note{font:12px Segoe UI,Arial; fill:#718096}
+      .bucket{fill:#edf2f7;stroke:#4a5568;stroke-width:1}
+      .node{fill:#e6fffa;stroke:#2c7a7b;stroke-width:1}
+      .tree{fill:#e9d8fd;stroke:#6b46c1;stroke-width:1}
+    </style>
+  </defs>
+
+  <text x="20" y="28" class="title">HashSet：基于 HashMap 的桶 + 链表/树化</text>
+
+  <!-- buckets -->
+  <g transform="translate(20,50)">
+    <rect x="0" y="0" width="140" height="260" class="bucket"/>
+    <text x="10" y="20" class="text">table[0]</text>
+
+    <rect x="160" y="0" width="140" height="260" class="bucket"/>
+    <text x="170" y="20" class="text">table[1]</text>
+
+    <rect x="320" y="0" width="140" height="260" class="bucket"/>
+    <text x="330" y="20" class="text">table[2]</text>
+
+    <rect x="480" y="0" width="140" height="260" class="bucket"/>
+    <text x="490" y="20" class="text">table[3]</text>
+
+    <rect x="640" y="0" width="140" height="260" class="bucket"/>
+    <text x="650" y="20" class="text">table[4]</text>
+  </g>
+
+  <!-- list nodes in bucket[2] -->
+  <g transform="translate(320,80)">
+    <rect x="0" y="0" width="120" height="30" class="node"/>
+    <text x="10" y="20" class="text">hash=0x12, key1</text>
+    <rect x="0" y="40" width="120" height="30" class="node"/>
+    <text x="10" y="60" class="text">hash=0x52, key2</text>
+    <rect x="0" y="80" width="120" height="30" class="tree"/>
+    <text x="10" y="100" class="text">treeify</text>
+  </g>
+
+  <text x="20" y="330" class="note">要点：高质量 hash、负载因子 0.75、链表长度>8 且容量足够时树化为红黑树。</text>
+</svg>

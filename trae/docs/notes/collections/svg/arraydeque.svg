@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="940" height="360" viewBox="0 0 940 360" role="img" aria-label="ArrayDeque ring buffer">
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="10" refY="3" orient="auto" markerUnits="strokeWidth">
+      <path d="M0,0 L10,3 L0,6 Z" fill="#555" />
+    </marker>
+    <style>
+      .title{font:600 14px Segoe UI,Arial; fill:#2b6cb0}
+      .text{font:12px Segoe UI,Arial; fill:#2d3748}
+      .note{font:12px Segoe UI,Arial; fill:#718096}
+      .slot{fill:#edf2f7;stroke:#4a5568;stroke-width:1;}
+      .head{fill:#bee3f8;stroke:#2b6cb0;}
+      .tail{fill:#c6f6d5;stroke:#2f855a;}
+      .op{fill:#fefcbf;stroke:#b7791f;stroke-width:1.5;rx:6;ry:6}
+    </style>
+  </defs>
+
+  <text x="20" y="28" class="title">ArrayDeque 环形数组与双端操作</text>
+
+  <!-- ring buffer slots -->
+  <g transform="translate(20,60)">
+    <!-- 8 slots -->
+    <rect x="0" y="0" width="90" height="50" class="slot"/>
+    <rect x="100" y="0" width="90" height="50" class="slot"/>
+    <rect x="200" y="0" width="90" height="50" class="slot head"/>
+    <rect x="300" y="0" width="90" height="50" class="slot"/>
+    <rect x="400" y="0" width="90" height="50" class="slot"/>
+    <rect x="500" y="0" width="90" height="50" class="slot"/>
+    <rect x="600" y="0" width="90" height="50" class="slot"/>
+    <rect x="700" y="0" width="90" height="50" class="slot tail"/>
+
+    <text x="210" y="35" class="text">head</text>
+    <text x="790" y="35" class="text">tail</text>
+  </g>
+
+  <!-- operations -->
+  <rect x="20" y="150" width="250" height="70" class="op"/>
+  <text x="30" y="175" class="text">addFirst / removeFirst</text>
+  <text x="30" y="195" class="note">头部移动 head 指针</text>
+
+  <rect x="300" y="150" width="250" height="70" class="op"/>
+  <text x="310" y="175" class="text">addLast / removeLast</text>
+  <text x="310" y="195" class="note">尾部移动 tail 指针</text>
+
+  <rect x="580" y="150" width="250" height="70" class="op"/>
+  <text x="590" y="175" class="text">push / pop</text>
+  <text x="590" y="195" class="note">栈语义基于 addFirst/removeFirst</text>
+
+  <text x="20" y="260" class="note">容量按 2 的幂次扩容；不允许 null；迭代期间结构性修改会 fail-fast。</text>
+</svg>
